@@ -20,7 +20,7 @@ from .models import (
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['id', 'avatar_url', 'name', 'bio', 'address', 'date_of_birth', 'gender']
 
 
 class CartSerializer(serializers.ModelSerializer):
@@ -50,7 +50,7 @@ class FoodCommentSerializer(serializers.ModelSerializer):
 class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = "__all__"
+        fields = ['id', 'owner', 'name', 'image_url', 'address']
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -80,7 +80,7 @@ class BuyerLikeStoreSerializer(serializers.ModelSerializer):
 class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
-        fields = "__all__"
+        fields = ['id', 'code', 'name', 'description', 'end', 'created_at', 'discount_amount', 'discount_type', 'max_price', 'min_price']
 
 
 class FoodDiscountSerializer(serializers.ModelSerializer):
