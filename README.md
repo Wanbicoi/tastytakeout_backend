@@ -32,6 +32,8 @@ python3 manage.py runserver
 
 ## TODOs
 
+[List UI Usecases](https://docs.google.com/spreadsheets/d/1yH2P1UtLlyWZNL87CDAHikUZFfhJuQUGOxtdd9LmiZE/edit#gid=816855299)
+
 ## Keys
 
 Supabase database:
