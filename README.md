@@ -11,6 +11,9 @@ python3 -m venv venv
 
 # linux only
 source venv/bin/activate
+
+# windows (powershell)
+Scripts\Activate
 ```
 
 2. Install requirements
