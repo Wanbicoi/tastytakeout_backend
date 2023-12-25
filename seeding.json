@@ -1,0 +1,1364 @@
+[
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 4,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 4,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 4,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 4,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 5,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 5,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 5,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 5,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 6,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 6,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 6,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 6,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add product",
+      "content_type": 7,
+      "codename": "add_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change product",
+      "content_type": 7,
+      "codename": "change_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete product",
+      "content_type": 7,
+      "codename": "delete_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view product",
+      "content_type": 7,
+      "codename": "view_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add food discount",
+      "content_type": 8,
+      "codename": "add_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change food discount",
+      "content_type": 8,
+      "codename": "change_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete food discount",
+      "content_type": 8,
+      "codename": "delete_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view food discount",
+      "content_type": 8,
+      "codename": "view_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add cart",
+      "content_type": 9,
+      "codename": "add_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change cart",
+      "content_type": 9,
+      "codename": "change_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete cart",
+      "content_type": 9,
+      "codename": "delete_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view cart",
+      "content_type": 9,
+      "codename": "view_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add order",
+      "content_type": 10,
+      "codename": "add_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change order",
+      "content_type": 10,
+      "codename": "change_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete order",
+      "content_type": 10,
+      "codename": "delete_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view order",
+      "content_type": 10,
+      "codename": "view_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add buyer like store",
+      "content_type": 11,
+      "codename": "add_buyerlikestore"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change buyer like store",
+      "content_type": 11,
+      "codename": "change_buyerlikestore"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete buyer like store",
+      "content_type": 11,
+      "codename": "delete_buyerlikestore"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view buyer like store",
+      "content_type": 11,
+      "codename": "view_buyerlikestore"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 12,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 12,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 12,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 12,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+      "name": "Can add food comment",
+      "content_type": 13,
+      "codename": "add_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+      "name": "Can change food comment",
+      "content_type": 13,
+      "codename": "change_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+      "name": "Can delete food comment",
+      "content_type": 13,
+      "codename": "delete_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+      "name": "Can view food comment",
+      "content_type": 13,
+      "codename": "view_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+      "name": "Can add chat",
+      "content_type": 14,
+      "codename": "add_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+      "name": "Can change chat",
+      "content_type": 14,
+      "codename": "change_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+      "name": "Can delete chat",
+      "content_type": 14,
+      "codename": "delete_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+      "name": "Can view chat",
+      "content_type": 14,
+      "codename": "view_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+      "name": "Can add category",
+      "content_type": 15,
+      "codename": "add_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+      "name": "Can change category",
+      "content_type": 15,
+      "codename": "change_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+      "name": "Can delete category",
+      "content_type": 15,
+      "codename": "delete_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+      "name": "Can view category",
+      "content_type": 15,
+      "codename": "view_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+      "name": "Can add order food",
+      "content_type": 16,
+      "codename": "add_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+      "name": "Can change order food",
+      "content_type": 16,
+      "codename": "change_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+      "name": "Can delete order food",
+      "content_type": 16,
+      "codename": "delete_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+      "name": "Can view order food",
+      "content_type": 16,
+      "codename": "view_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+      "name": "Can add buyer like food",
+      "content_type": 17,
+      "codename": "add_buyerlikefood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+      "name": "Can change buyer like food",
+      "content_type": 17,
+      "codename": "change_buyerlikefood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+      "name": "Can delete buyer like food",
+      "content_type": 17,
+      "codename": "delete_buyerlikefood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+      "name": "Can view buyer like food",
+      "content_type": 17,
+      "codename": "view_buyerlikefood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+      "name": "Can add voucher",
+      "content_type": 18,
+      "codename": "add_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+      "name": "Can change voucher",
+      "content_type": 18,
+      "codename": "change_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+      "name": "Can delete voucher",
+      "content_type": 18,
+      "codename": "delete_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+      "name": "Can view voucher",
+      "content_type": 18,
+      "codename": "view_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+      "name": "Can add store",
+      "content_type": 19,
+      "codename": "add_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+      "name": "Can change store",
+      "content_type": 19,
+      "codename": "change_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+      "name": "Can delete store",
+      "content_type": 19,
+      "codename": "delete_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+      "name": "Can view store",
+      "content_type": 19,
+      "codename": "view_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 77,
+    "fields": {
+      "name": "Can add food",
+      "content_type": 20,
+      "codename": "add_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 78,
+    "fields": {
+      "name": "Can change food",
+      "content_type": 20,
+      "codename": "change_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 79,
+    "fields": {
+      "name": "Can delete food",
+      "content_type": 20,
+      "codename": "delete_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 80,
+    "fields": {
+      "name": "Can view food",
+      "content_type": 20,
+      "codename": "view_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 81,
+    "fields": {
+      "name": "Can add cart",
+      "content_type": 21,
+      "codename": "add_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 82,
+    "fields": {
+      "name": "Can change cart",
+      "content_type": 21,
+      "codename": "change_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 83,
+    "fields": {
+      "name": "Can delete cart",
+      "content_type": 21,
+      "codename": "delete_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 84,
+    "fields": {
+      "name": "Can view cart",
+      "content_type": 21,
+      "codename": "view_cart"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 85,
+    "fields": {
+      "name": "Can add chat",
+      "content_type": 22,
+      "codename": "add_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 86,
+    "fields": {
+      "name": "Can change chat",
+      "content_type": 22,
+      "codename": "change_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 87,
+    "fields": {
+      "name": "Can delete chat",
+      "content_type": 22,
+      "codename": "delete_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 88,
+    "fields": {
+      "name": "Can view chat",
+      "content_type": 22,
+      "codename": "view_chat"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 89,
+    "fields": {
+      "name": "Can add food",
+      "content_type": 23,
+      "codename": "add_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 90,
+    "fields": {
+      "name": "Can change food",
+      "content_type": 23,
+      "codename": "change_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 91,
+    "fields": {
+      "name": "Can delete food",
+      "content_type": 23,
+      "codename": "delete_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 92,
+    "fields": {
+      "name": "Can view food",
+      "content_type": 23,
+      "codename": "view_food"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 93,
+    "fields": {
+      "name": "Can add category",
+      "content_type": 24,
+      "codename": "add_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 94,
+    "fields": {
+      "name": "Can change category",
+      "content_type": 24,
+      "codename": "change_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 95,
+    "fields": {
+      "name": "Can delete category",
+      "content_type": 24,
+      "codename": "delete_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 96,
+    "fields": {
+      "name": "Can view category",
+      "content_type": 24,
+      "codename": "view_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 97,
+    "fields": {
+      "name": "Can add food comment",
+      "content_type": 25,
+      "codename": "add_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 98,
+    "fields": {
+      "name": "Can change food comment",
+      "content_type": 25,
+      "codename": "change_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 99,
+    "fields": {
+      "name": "Can delete food comment",
+      "content_type": 25,
+      "codename": "delete_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 100,
+    "fields": {
+      "name": "Can view food comment",
+      "content_type": 25,
+      "codename": "view_foodcomment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 101,
+    "fields": {
+      "name": "Can add food discount",
+      "content_type": 26,
+      "codename": "add_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 102,
+    "fields": {
+      "name": "Can change food discount",
+      "content_type": 26,
+      "codename": "change_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 103,
+    "fields": {
+      "name": "Can delete food discount",
+      "content_type": 26,
+      "codename": "delete_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 104,
+    "fields": {
+      "name": "Can view food discount",
+      "content_type": 26,
+      "codename": "view_fooddiscount"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 105,
+    "fields": {
+      "name": "Can add voucher",
+      "content_type": 27,
+      "codename": "add_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 106,
+    "fields": {
+      "name": "Can change voucher",
+      "content_type": 27,
+      "codename": "change_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 107,
+    "fields": {
+      "name": "Can delete voucher",
+      "content_type": 27,
+      "codename": "delete_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 108,
+    "fields": {
+      "name": "Can view voucher",
+      "content_type": 27,
+      "codename": "view_voucher"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 109,
+    "fields": {
+      "name": "Can add order",
+      "content_type": 28,
+      "codename": "add_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 110,
+    "fields": {
+      "name": "Can change order",
+      "content_type": 28,
+      "codename": "change_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 111,
+    "fields": {
+      "name": "Can delete order",
+      "content_type": 28,
+      "codename": "delete_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 112,
+    "fields": {
+      "name": "Can view order",
+      "content_type": 28,
+      "codename": "view_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 113,
+    "fields": {
+      "name": "Can add order food",
+      "content_type": 29,
+      "codename": "add_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 114,
+    "fields": {
+      "name": "Can change order food",
+      "content_type": 29,
+      "codename": "change_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 115,
+    "fields": {
+      "name": "Can delete order food",
+      "content_type": 29,
+      "codename": "delete_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 116,
+    "fields": {
+      "name": "Can view order food",
+      "content_type": 29,
+      "codename": "view_orderfood"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 117,
+    "fields": {
+      "name": "Can add store",
+      "content_type": 30,
+      "codename": "add_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 118,
+    "fields": {
+      "name": "Can change store",
+      "content_type": 30,
+      "codename": "change_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 119,
+    "fields": {
+      "name": "Can delete store",
+      "content_type": 30,
+      "codename": "delete_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 120,
+    "fields": {
+      "name": "Can view store",
+      "content_type": 30,
+      "codename": "view_store"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 121,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 31,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 122,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 31,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 123,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 31,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 124,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 31,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": { "app_label": "admin", "model": "logentry" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": { "app_label": "auth", "model": "permission" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": { "app_label": "auth", "model": "group" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": { "app_label": "auth", "model": "user" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": { "app_label": "contenttypes", "model": "contenttype" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": { "app_label": "sessions", "model": "session" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": { "app_label": "tastytakout", "model": "product" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": { "app_label": "tastytakout", "model": "fooddiscount" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": { "app_label": "tastytakout", "model": "cart" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": { "app_label": "tastytakout", "model": "order" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": { "app_label": "tastytakout", "model": "buyerlikestore" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": { "app_label": "tastytakout", "model": "user" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": { "app_label": "tastytakout", "model": "foodcomment" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": { "app_label": "tastytakout", "model": "chat" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": { "app_label": "tastytakout", "model": "category" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": { "app_label": "tastytakout", "model": "orderfood" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": { "app_label": "tastytakout", "model": "buyerlikefood" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": { "app_label": "tastytakout", "model": "voucher" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 19,
+    "fields": { "app_label": "tastytakout", "model": "store" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 20,
+    "fields": { "app_label": "tastytakout", "model": "food" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 21,
+    "fields": { "app_label": "carts", "model": "cart" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 22,
+    "fields": { "app_label": "chat", "model": "chat" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 23,
+    "fields": { "app_label": "foods", "model": "food" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 24,
+    "fields": { "app_label": "foods", "model": "category" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 25,
+    "fields": { "app_label": "foods", "model": "foodcomment" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 26,
+    "fields": { "app_label": "foods", "model": "fooddiscount" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 27,
+    "fields": { "app_label": "orders", "model": "voucher" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 28,
+    "fields": { "app_label": "orders", "model": "order" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 29,
+    "fields": { "app_label": "orders", "model": "orderfood" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 30,
+    "fields": { "app_label": "stores", "model": "store" }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 31,
+    "fields": { "app_label": "users", "model": "user" }
+  },
+  { "model": "foods.category", "pk": 1, "fields": { "name": "Bún" } },
+  { "model": "foods.category", "pk": 2, "fields": { "name": "Đồ ăn nhanh" } },
+  { "model": "foods.category", "pk": 3, "fields": { "name": "Giải khát" } },
+  {
+    "model": "foods.food",
+    "pk": 1,
+    "fields": {
+      "store": 2,
+      "category": 3,
+      "image_urls": [
+        "https://vnaroma.com/wp-content/uploads/2020/10/gia-vi-san-xuat-nuoc-giai-khat-co-gas-02.jpg",
+        "https://www.nguyenlieuantoan.com/assets/upload/news/1597291086_ct-tr%C3%A0-t%E1%BA%AFc.jpg?v=0.0.3.1"
+      ],
+      "name": "[Chai 1 Lít] NƯỚC CỐT CHANH [VN] CHAVI Lime Juice 100A",
+      "description": "Thương hiệu: CHAVI\r\n    Xuất xứ: Tỉnh Long An – Việt Nam.\r\n    Dung tích: 1 Lít\r\n    Thành phần: Dịch cốt chanh >= 98%; Chất điều chỉnh độ chua (330, 338).\r\n    Hạn sử dụng: 12 tháng.\r\n    Sản phẩm được xem là giải pháp mới vô cùng tiện lợi, an toàn và loại bỏ được các bất cập khi sử dụng quả tươi như:\r\n    Không tốn thời gian vắt quả.\r\n    Không tốn công trữ quả tươi, tránh tình trạng lãng phí do trữ quả không tốt và thời gian lâu ngày làm hư hỏng quả.\r\n    Nếu dùng chanh tươi, chất lượng thành phẩm có thể bị ảnh hưởng và thay đổi tùy thuộc vào độ chín, độ chua của quả. Nước cốt chanh 100A giúp giữ nguyên chất lượng của thành phẩm về độ chua, hương vị, màu sắc…\r\n    Loại bỏ được vị đắng của tinh dầu vỏ chanh.\r\n    Hương vị thơm ngon từ chanh tươi tự nhiên.\r\n    Công dụng:\r\n    Nước chanh 100A là nguyên liệu với thành phần từ chanh tươi nguyên chất, tạo hương vị chanh chua tự nhiên.\r\n    Dùng trong pha chế các loại nước uống (nước chanh, trà chanh, cocktail,…); chế biến các món ăn (lẩu Thái, lẩu chua, mì cay, mì Tomyum,…)\r\n    Sử dụng cho các loại nước chấm (nước mắm chua ngọt, nước sốt chan bánh mì thịt nướng,…)\r\n    Phục vụ việc làm các món gỏi; dùng làm nguyên liệu trong sản xuất ngàng dược phẩm hay ăn uống.\r\n    Ngoài ra, sản phẩm còn là giải pháp thay thế chanh tươi hoàn hảo dành cho các nhà hàng, quán ăn, quán café, bar…\r\n    Bảo quản sản phẩm\r\n    Để sản phẩm nơi khô ráo thoáng mát, tránh để gần khu vực có nhiệt độ cao.\r\n    Sau khi sử dụng đậy kín, có thể để trong tủ lạnh.",
+      "price": 147900,
+      "quantity": 3,
+      "created_at": "2023-12-24T10:14:04.403Z",
+      "rating": 5.0
+    }
+  },
+  {
+    "model": "foods.food",
+    "pk": 2,
+    "fields": {
+      "store": 2,
+      "category": 3,
+      "image_urls": [
+        "https://down-vn.img.susercontent.com/file/vn-50009109-b15718cfd4c92a9ae30f2ca0af4f2bae"
+      ],
+      "name": "SODA TRÁI CÂY VTALK HÀN QUỐC 350ML",
+      "description": "SODA TRÁI CÂY VTALK HÀN QUỐC 350ML\r\nXuất Xứ: Hàn Quốc\r\nHSD: 6 Tháng\r\n\r\n- Bảo quản, hướng dẫn sử dụng : Nơi thoáng mát , tránh ánh nắng trực tiếp. Ngon hơn khi dùng lạnh\r\n\r\n- Mô tả sản phẩm : Nước soda VTALK được thế kế vỏ lon bằng nhựa trong suốt rất đẹp mắt và an toàn khi sử dụng , đặc biệt mùi vị của soda VTALK không ngọt gắt và sốc hơi gas như những sản phẩm soda cùng loại khác . Rất phù hợp trong các bữa tiệc cùng gia đình và bạn bè.",
+      "price": 21000,
+      "quantity": 800,
+      "created_at": "2023-12-24T10:16:01.483Z",
+      "rating": 5.0
+    }
+  },
+  {
+    "model": "stores.store",
+    "pk": 2,
+    "fields": {
+      "owner": 3,
+      "name": "Never Thirsty",
+      "image_url": "https://cdn3.vectorstock.com/i/1000x1000/63/62/fresh-drink-shop-icon-flat-style-vector-21156362.jpg",
+      "phone": "",
+      "address": "Đ. Số 21, P. Bình An, Quận 2, Thành phố Hồ Chí Minh",
+      "email": "",
+      "license_image_url": "",
+      "owner_name": "",
+      "note": "",
+      "deny_reason": "",
+      "created_at": "2023-12-24T10:10:15.982Z",
+      "status": ""
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "role": "BUYER",
+      "PIN": null,
+      "avatar_url": "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
+      "name": "Hoàng Văn Khải",
+      "bio": "105 Bà Huyện Thanh Quan, Võ Thị Sáu, Quận 3, Thành phố Hồ Chí Minh",
+      "phone": "",
+      "address": "105 Bà Huyện Thanh Quan, Võ Thị Sáu, Quận 3, Thành phố Hồ Chí Minh",
+      "date_of_birth": "2003-08-04T00:00:00Z",
+      "gender": "MALE",
+      "liked_foods": [],
+      "liked_stores": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "role": "SELLER",
+      "PIN": null,
+      "avatar_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMy7dnF82Bqygka5-k81DHcVDHj9w0rwlDWFVXP7BMdE-tjLu-yL_zH_UaLFilXPEJNMw&usqp=CAU",
+      "name": "Doanh nhân thành đạt",
+      "bio": "Quận 1, Thành phố Hồ Chí Minh",
+      "phone": "",
+      "address": "Quận 1, Thành phố Hồ Chí Minh",
+      "date_of_birth": "2003-08-04T00:00:00Z",
+      "gender": "FEMALE",
+      "liked_foods": [],
+      "liked_stores": []
+    }
+  }
+]
+

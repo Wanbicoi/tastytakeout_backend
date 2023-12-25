@@ -37,11 +37,30 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # 3rd party
     "rest_framework",
-    "tastytakout",
     "drf_yasg",
+    "rest_framework_simplejwt",
+    # local apps
+    "tastytakout",
+    "carts",
+    "chat",
+    "foods",
+    "orders",
+    "stores",
+    "users",
 ]
-REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema"}
+
+AUTH_USER_MODEL = "users.User"
+SECURITY_DEFINITIONS = {
+    "api_key": {"type": "apiKey", "in": "header", "name": "Authorization"}
+}
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,8 +105,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "taskytakout123",
-        "HOST": "db.iwgcyryszzjwwouxxvlm.supabase.co",
+        "PASSWORD": "DeIeBBqe4yTtaYTu",
+        "HOST": "db.qaldprdnagudtoytxbak.supabase.co",
         "PORT": "5432",
     }
 }

@@ -1,96 +1,85 @@
-from rest_framework import viewsets
-from .models import (
-    User,
-    Cart,
-    Category,
-    Food,
-    FoodComment,
-    Store,
-    Order,
-    OrderFood,
-    BuyerLikeFood,
-    BuyerLikeStore,
-    Voucher,
-    FoodDiscount,
-    Chat,
-)
-from .serializers import (
-    UserSerializer,
-    CartSerializer,
-    CategorySerializer,
-    FoodSerializer,
-    FoodCommentSerializer,
-    StoreSerializer,
-    OrderSerializer,
-    OrderFoodSerializer,
-    BuyerLikeFoodSerializer,
-    BuyerLikeStoreSerializer,
-    VoucherSerializer,
-    FoodDiscountSerializer,
-    ChatSerializer,
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import serializers, status
+from rest_framework_simplejwt.views import (
+    TokenBlacklistView,
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
 )
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class TokenObtainPairResponseSerializer(serializers.Serializer):
+    access = serializers.CharField()
+    refresh = serializers.CharField()
+
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
 
 
-class CartViewSet(viewsets.ModelViewSet):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+class DecoratedTokenObtainPairView(TokenObtainPairView):
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: TokenObtainPairResponseSerializer,
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+class TokenRefreshResponseSerializer(serializers.Serializer):
+    access = serializers.CharField()
+
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
 
 
-class FoodViewSet(viewsets.ModelViewSet):
-    queryset = Food.objects.all()
-    serializer_class = FoodSerializer
+class DecoratedTokenRefreshView(TokenRefreshView):
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: TokenRefreshResponseSerializer,
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
-class FoodCommentViewSet(viewsets.ModelViewSet):
-    queryset = FoodComment.objects.all()
-    serializer_class = FoodCommentSerializer
+class TokenVerifyResponseSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
 
 
-class StoreViewSet(viewsets.ModelViewSet):
-    queryset = Store.objects.all()
-    serializer_class = StoreSerializer
+class DecoratedTokenVerifyView(TokenVerifyView):
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: TokenVerifyResponseSerializer,
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
-class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+class TokenBlacklistResponseSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
 
 
-class OrderFoodViewSet(viewsets.ModelViewSet):
-    queryset = OrderFood.objects.all()
-    serializer_class = OrderFoodSerializer
-
-
-class BuyerLikeFoodViewSet(viewsets.ModelViewSet):
-    queryset = BuyerLikeFood.objects.all()
-    serializer_class = BuyerLikeFoodSerializer
-
-
-class BuyerLikeStoreViewSet(viewsets.ModelViewSet):
-    queryset = BuyerLikeStore.objects.all()
-    serializer_class = BuyerLikeStoreSerializer
-
-
-class VoucherViewSet(viewsets.ModelViewSet):
-    queryset = Voucher.objects.all()
-    serializer_class = VoucherSerializer
-
-
-class FoodDiscountViewSet(viewsets.ModelViewSet):
-    queryset = FoodDiscount.objects.all()
-    serializer_class = FoodDiscountSerializer
-
-
-class ChatViewSet(viewsets.ModelViewSet):
-    queryset = Chat.objects.all()
-    serializer_class = ChatSerializer
+class DecoratedTokenBlacklistView(TokenBlacklistView):
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: TokenBlacklistResponseSerializer,
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)

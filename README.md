@@ -8,6 +8,9 @@ Please note that we use Python3.
 
 ```bash
 python3 -m venv venv
+
+# linux only
+source venv/bin/activate
 ```
 
 2. Install requirements
@@ -16,19 +19,13 @@ python3 -m venv venv
 pip install -r requirements.txt
 ```
 
-3. Install PostgresSQL (You may meet this error [StackOverflow](https://stackoverflow.com/questions/5420789/how-to-install-psycopg2-with-pip-on-python))
-
-```bash
-pip install psycopg2
-```
-
-4. Start server
+3. Start server
 
 ```bash
 python3 manage.py runserver
 ```
 
-5. Navigate to this link: [http://localhost:8000/swagger/](http://localhost:8000/swagger/).
+4. Navigate to this link: [http://localhost:8000/swagger/](http://localhost:8000/swagger/).
 
 ## TODOs
 
