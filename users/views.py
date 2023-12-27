@@ -6,7 +6,7 @@ from rest_framework import generics, mixins
 from django.contrib.auth import authenticate
 from .serializers import LoginUserSerializer, ProfileSerializer, RegisterUserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-from drf_yasg.utils import swagger_auto_schema
+from drf_spectacular.utils import extend_schema
 
 
 class ProfileViewSet(
@@ -22,7 +22,7 @@ class ProfileViewSet(
     permission_classes = [permissions.IsAuthenticated]
 
 
-@swagger_auto_schema(method="post", request_body=RegisterUserSerializer)
+@extend_schema(request=RegisterUserSerializer)
 @api_view(["POST"])
 def account_registration(request):
     serializer = RegisterUserSerializer(data=request.data)
@@ -33,7 +33,7 @@ def account_registration(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@swagger_auto_schema(method="post", request_body=LoginUserSerializer)
+@extend_schema(request=LoginUserSerializer)
 @api_view(["POST"])
 def account_login(request):
     serializer = LoginUserSerializer(data=request.data)

@@ -33,9 +33,11 @@ class Order(models.Model):
         ("APPROVED", "Approved"),
         ("DENIED", "Denied"),
     ]
-    status = models.CharField(max_length=8, choices=ORDER_STATUS_CHOICES)
+    status = models.CharField(
+        max_length=8, choices=ORDER_STATUS_CHOICES, default="PENDING"
+    )
     total = models.IntegerField()
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=timezone.now)
     PAYMENT_METHOD_CHOICES = [
         ("CASH", "Cash"),
         ("BANKING", "Banking"),
@@ -44,7 +46,7 @@ class Order(models.Model):
 
 
 class OrderFood(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="foods")
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     total = models.IntegerField()

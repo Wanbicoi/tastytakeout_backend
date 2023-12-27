@@ -22,7 +22,7 @@ class FoodDiscountSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class FoodSerializer(serializers.ModelSerializer):
+class GetFoodSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     store = StoreSerializer()
     comments = FoodCommentSerializer(many=True)
@@ -30,3 +30,10 @@ class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
         fields = "__all__"
+
+
+class FoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Food
+        fields = "__all__"
+        # exclude = ("store", "category")

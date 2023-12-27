@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from users.models import User
 
 
 class Category(models.Model):
@@ -19,6 +20,7 @@ class Food(models.Model):
 
 
 class FoodComment(models.Model):
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE)
     food = models.ForeignKey(Food, related_name="comments", on_delete=models.CASCADE)
     rating = models.IntegerField()
     content = models.TextField()

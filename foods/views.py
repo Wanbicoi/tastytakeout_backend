@@ -1,26 +1,36 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Category, Food, FoodComment
-from .serializers import CategorySerializer, FoodSerializer, FoodCommentSerializer
+from .serializers import (
+    CategorySerializer,
+    FoodSerializer,
+    FoodCommentSerializer,
+    GetFoodSerializer,
+)
 from rest_framework.decorators import action
-from drf_yasg.utils import swagger_auto_schema
+from drf_spectacular.utils import extend_schema
 
 
-# TODO Bảng food bị thiếu user comment là ai, sau khi có authen rồi xừ lí
 class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
-    serializer_class = FoodSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-    @swagger_auto_schema(methods=["post", "delete"], request_body=FoodCommentSerializer)
+    def get_serializer_class(self):  # type: ignore
+        if self.request.method == "GET":
+            return GetFoodSerializer
+        else:
+            return FoodSerializer
+
+    @extend_schema(request=FoodCommentSerializer)
     @action(detail=True, methods=["post", "delete"])
     def comment(self, request, pk=None):
-        food = self.get_object()  # Get the specific Food object
-
+        food = self.get_object()
         if request.method == "POST":
             serializer = FoodCommentSerializer(data=request.data)
             if serializer.is_valid():
-                serializer.save(food=food)
+                serializer.save(food=food, commenter=request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -44,5 +54,6 @@ class FoodViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer

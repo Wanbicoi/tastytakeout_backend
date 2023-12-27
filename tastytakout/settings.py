@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party
     "rest_framework",
-    "drf_yasg",
+    "drf_spectacular",
     "rest_framework_simplejwt",
     # local apps
     "tastytakout",
@@ -52,11 +53,19 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = "users.User"
-SECURITY_DEFINITIONS = {
-    "api_key": {"type": "apiKey", "in": "header", "name": "Authorization"}
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Tasty Takout API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(weeks=300),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": None,
+    "SLIDING_TOKEN_LIFETIME": None,
+    "ROTATE_REFRESH_TOKENS": False,
 }
 REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
