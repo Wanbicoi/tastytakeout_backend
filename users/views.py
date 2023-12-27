@@ -5,6 +5,7 @@ from .models import User
 from rest_framework import generics, mixins
 from django.contrib.auth import authenticate
 from .serializers import LoginUserSerializer, ProfileSerializer, RegisterUserSerializer
+from foods.models import Food
 from .serializers import UserLikeFoodSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from drf_yasg.utils import swagger_auto_schema
@@ -70,3 +71,26 @@ def get_favorite_foods(request, user_id):
     
     except User.DoesNotExist:
         return Response({"message": "User does not exist"}, status=status.HTTP_404_NOT_FOUND)
+    
+
+# Check if a user likes a food
+# /users/check-user-likes-food/?user_id=16&food_id=5
+@api_view(["GET"])
+def check_user_likes_food(request):
+    user_id = request.query_params.get('user_id')
+    food_id = request.query_params.get('food_id')
+
+    try:
+        user = User.objects.get(id=user_id)
+        food = Food.objects.get(id=food_id)
+
+        if food in user.liked_foods.all():
+            return Response({"user_likes_food": True}, status=status.HTTP_200_OK)
+        else:
+            return Response({"user_likes_food": False}, status=status.HTTP_200_OK)
+
+    except User.DoesNotExist:
+        return Response({"message": "User does not exist"}, status=status.HTTP_404_NOT_FOUND)
+    
+    except Food.DoesNotExist:
+        return Response({"message": "Food does not exist"}, status=status.HTTP_404_NOT_FOUND)
