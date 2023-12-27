@@ -6,6 +6,7 @@ from rest_framework import generics, mixins
 from django.contrib.auth import authenticate
 from .serializers import LoginUserSerializer, ProfileSerializer, RegisterUserSerializer
 from foods.models import Food
+from stores.models import Store
 from .serializers import UserLikeFoodSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from drf_yasg.utils import swagger_auto_schema
@@ -94,3 +95,26 @@ def check_user_likes_food(request):
     
     except Food.DoesNotExist:
         return Response({"message": "Food does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+
+# Check if a user likes a store
+# /users/check-user-likes-store/?user_id=16&store_id=5
+@api_view(["GET"])
+def check_user_likes_store(request):
+    user_id = request.query_params.get('user_id')
+    store_id = request.query_params.get('store_id')
+
+    try:
+        user = User.objects.get(id=user_id)
+        store = Store.objects.get(id=store_id)
+
+        if store in user.liked_stores.all():
+            return Response({"user_likes_store": True}, status=status.HTTP_200_OK)
+        else:
+            return Response({"user_likes_store": False}, status=status.HTTP_200_OK)
+
+    except User.DoesNotExist:
+        return Response({"message": "User does not exist"}, status=status.HTTP_404_NOT_FOUND)
+    
+    except Store.DoesNotExist:
+        return Response({"message": "Store does not exist"}, status=status.HTTP_404_NOT_FOUND)
