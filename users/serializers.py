@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import User
-
+from foods.serializers import FavoriteFoodSerializer
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,3 +36,11 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 class LoginUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+
+
+class UserLikeFoodSerializer(serializers.Serializer):
+    liked_foods = FavoriteFoodSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'liked_foods']

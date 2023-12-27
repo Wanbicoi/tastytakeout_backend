@@ -5,6 +5,7 @@ from .models import User
 from rest_framework import generics, mixins
 from django.contrib.auth import authenticate
 from .serializers import LoginUserSerializer, ProfileSerializer, RegisterUserSerializer
+from .serializers import UserLikeFoodSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from drf_yasg.utils import swagger_auto_schema
 
@@ -56,3 +57,16 @@ def account_login(request):
             )
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Get favorite foods of a user
+# /users/20/favorite-foods/
+@api_view(["GET"])
+def get_favorite_foods(request, user_id):
+    try:       
+        user = User.objects.get(id=user_id)
+        serialized_foods = UserLikeFoodSerializer(user).data
+        return Response(serialized_foods, status=status.HTTP_200_OK)
+    
+    except User.DoesNotExist:
+        return Response({"message": "User does not exist"}, status=status.HTTP_404_NOT_FOUND)
