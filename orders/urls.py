@@ -1,9 +1,17 @@
 from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from orders.views import OrderViewSet
+from orders.views import OrderViewSet, VoucherViewSet, count_valid_vouchers
 
 
 router = DefaultRouter()
 router.register(r"orders", OrderViewSet)
-urlpatterns = []
+router.register(r"vouchers", VoucherViewSet)
+urlpatterns = [
+    path(
+        "vouchers/count-valid-vouchers/",
+        count_valid_vouchers,
+        name="count_valid_vouchers",
+    ),
+]
 urlpatterns += router.urls

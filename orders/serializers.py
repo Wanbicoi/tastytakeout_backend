@@ -14,7 +14,18 @@ class OrderFoodSerializer(serializers.ModelSerializer):
 class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
-        fields = "__all__"
+        fields = [
+            "id",
+            "code",
+            "name",
+            "description",
+            "end",
+            "created_at",
+            "discount_amount",
+            "discount_type",
+            "max_price",
+            "min_price",
+        ]
 
 
 class GetOrderSerializer(serializers.ModelSerializer):
