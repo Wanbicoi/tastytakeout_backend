@@ -36,6 +36,22 @@ python3 manage.py runserver
 
 ## Keys
 
-Supabase database:
-dbname = taskytakout
-password = taskytakout123
+Sample accounts:
+
+- For seller:
+
+```json
+{
+  "username": "0782592035",
+  "password": "12345678"
+}
+```
+
+- For buyer:
+
+```json
+{
+  "username": "123",
+  "password": "1234"
+}
+```

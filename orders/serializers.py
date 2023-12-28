@@ -35,19 +35,19 @@ class GetOrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = "__all__"
 
-    # def get_total(self, instance):
-    #     total = sum(food["quantity"] * food["food"]["price"] for food in instance.foods)
-    #     return total
-
 
 class OrderSerializer(serializers.ModelSerializer):
     foods = OrderFoodSerializer(many=True)
 
     class Meta:
         model = Order
-        exclude = ("buyer", "store")
+        exclude = ("buyer",)
 
     def create(self, validated_data):
         request = self.context.get("request")
-        newOrder = Order(buyer=request.user, **validated_data)  # type: ignore
-        return newOrder
+        foods_data = validated_data.pop("foods", [])
+        order = Order.objects.create(buyer=request.user, **validated_data)  # type: ignore
+
+        for food_data in foods_data:
+            OrderFood.objects.create(order=order, **food_data)
+        return order

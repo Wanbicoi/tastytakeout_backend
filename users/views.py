@@ -12,7 +12,6 @@ from drf_spectacular.utils import extend_schema
 class ProfileViewSet(
     mixins.RetrieveModelMixin,
     mixins.ListModelMixin,
-    mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     viewsets.ViewSetMixin,
     generics.GenericAPIView,
