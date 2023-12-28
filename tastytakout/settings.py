@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "rest_framework_simplejwt",
+    "django_filters",
     # local apps
     "tastytakout",
     "carts",
@@ -63,6 +64,7 @@ SIMPLE_JWT = {
     "TOKEN_OBTAIN_SERIALIZER": "tastytakout.serializers.MyTokenObtainPairSerializer",
 }
 REST_FRAMEWORK = {
+    # "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend"),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",

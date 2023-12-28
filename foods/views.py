@@ -2,6 +2,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status
+
+from foods.filters import FoodFilter
 from .models import Category, Food, FoodComment
 from .serializers import (
     CategorySerializer,
@@ -11,17 +13,26 @@ from .serializers import (
 )
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema
+from django_filters import rest_framework as filters
 
 
 class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = FoodFilter
+
     def get_serializer_class(self):  # type: ignore
         if self.request.method == "GET":
             return GetFoodSerializer
         else:
             return FoodSerializer
+
+    # def list(self, request):
+    #     queryset = Food.objects.all()
+    #     serializer = Food(queryset, many=True)
+    #     return Response(serializer.data)
 
     @extend_schema(request=FoodCommentSerializer)
     @action(detail=True, methods=["post", "delete"])
