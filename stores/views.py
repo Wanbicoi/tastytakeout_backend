@@ -4,13 +4,15 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.views import Response, status
 
+from utils.permissions import IsSeller
+
 from .models import Store
 from .serializers import GetStoreSerializer, LikeStoreSerializer, StoreSerializer
 
 
 class StoreViewSet(viewsets.ModelViewSet):
     queryset = Store.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsSeller]
 
     def get_serializer_class(self):  # type: ignore
         if self.request.method == "GET":

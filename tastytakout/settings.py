@@ -60,9 +60,7 @@ SPECTACULAR_SETTINGS = {
 }
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(weeks=300),
-    "SLIDING_TOKEN_REFRESH_LIFETIME": None,
-    "SLIDING_TOKEN_LIFETIME": None,
-    "ROTATE_REFRESH_TOKENS": False,
+    "TOKEN_OBTAIN_SERIALIZER": "tastytakout.serializers.MyTokenObtainPairSerializer",
 }
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
