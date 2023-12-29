@@ -4,10 +4,10 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.views import Response, status
 
-from utils.permissions import IsSeller
+from utils.permissions import IsSeller, IsOwner
 
 from .models import Store
-from .serializers import GetStoreSerializer, LikeStoreSerializer, StoreSerializer
+from .serializers import GetStoreSerializer, LikeStoreSerializer, StoreSerializer, VerificationSerializer
 from django_filters import rest_framework as filters
 from stores.filters import StoreFilter
 
@@ -41,3 +41,30 @@ class StoreViewSet(viewsets.ModelViewSet):
             store.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class VerificationViewSet(viewsets.ModelViewSet):
+    queryset = Store.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwner]
+
+    filter_backends = (filters.DjangoFilterBackend,)
+
+    @extend_schema(request=VerificationSerializer)
+    @action(detail=True, methods=["post"])
+    def request_verification(self, request, pk=None):
+        store = self.get_object()
+        serializer = VerificationSerializer(data=request.data)
+        if serializer.is_valid():
+            owner_name = serializer.data.get("owner_name")  # type: ignore
+            license_image_url = serializer.data.get("license_image_url")
+            note = serializer.data.get("note")
+            if owner_name and license_image_url:
+                store.owner_name = owner_name
+                store.license_image_url = license_image_url
+                store.note = note
+                store.created_at = datetime.datetime.now()
+                store.status = "PENDING"
+            store.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

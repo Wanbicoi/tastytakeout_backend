@@ -39,3 +39,9 @@ class StoreSerializer(serializers.ModelSerializer):
 
 class LikeStoreSerializer(serializers.Serializer):
     is_liked = serializers.BooleanField()
+
+
+class VerificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = ['license_image_url', 'owner_name', 'note']
