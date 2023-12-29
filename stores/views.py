@@ -8,11 +8,18 @@ from utils.permissions import IsSeller
 
 from .models import Store
 from .serializers import GetStoreSerializer, LikeStoreSerializer, StoreSerializer
+from django_filters import rest_framework as filters
+from stores.filters import StoreFilter
 
+import datetime
 
 class StoreViewSet(viewsets.ModelViewSet):
     queryset = Store.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly, IsSeller]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly, IsSeller]
+
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = StoreFilter
 
     def get_serializer_class(self):  # type: ignore
         if self.request.method == "GET":

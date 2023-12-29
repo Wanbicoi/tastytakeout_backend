@@ -25,7 +25,21 @@ class FoodDiscountSerializer(serializers.ModelSerializer):
 class GetFoodSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     store = StoreSerializer()
-    comments = FoodCommentSerializer(many=True)
+    comments = FoodCommentSerializer(many=True)  
+    
+    is_liked = serializers.SerializerMethodField()
+    likers_count = serializers.SerializerMethodField()
+
+    def get_is_liked(self, obj):
+        request = self.context.get("request")
+        user = request.user if request and hasattr(request, "user") else None
+
+        if user and user.is_authenticated:
+            return obj.likers.filter(id=user.id).exists()
+        return False
+
+    def get_likers_count(self, obj):
+        return obj.likers.count()
 
     class Meta:
         model = Food
@@ -37,3 +51,7 @@ class FoodSerializer(serializers.ModelSerializer):
         model = Food
         fields = "__all__"
         # exclude = ("store", "category")
+
+
+class LikeFoodSerializer(serializers.Serializer):
+    is_liked = serializers.BooleanField()
