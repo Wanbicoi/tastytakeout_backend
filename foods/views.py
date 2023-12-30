@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -11,7 +11,7 @@ from .serializers import (
     FoodCommentSerializer,
     GetFoodSerializer,
 )
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 from drf_spectacular.utils import extend_schema
 from django_filters import rest_framework as filters
 
@@ -64,6 +64,7 @@ class FoodViewSet(viewsets.ModelViewSet):
         )
 
 
+@permission_classes([IsAuthenticated])
 class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Category.objects.all()
