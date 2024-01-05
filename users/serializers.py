@@ -9,7 +9,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "email",
-            "role",
             "avatar_url",
             "name",
             "bio",
@@ -17,6 +16,16 @@ class ProfileSerializer(serializers.ModelSerializer):
             "date_of_birth",
             "gender",
         ]
+
+    def __init__(self, *args, **kwargs):
+        # Call the parent __init__ method
+        super(ProfileSerializer, self).__init__(*args, **kwargs)
+
+        if self.context.get("request") and self.context["request"].method in [
+            "PATCH",
+            "PUT",
+        ]:
+            self.fields.pop("username", None)
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -36,3 +45,8 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 class LoginUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

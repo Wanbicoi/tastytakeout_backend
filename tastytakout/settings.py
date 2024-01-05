@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "daphne",
     "django.contrib.staticfiles",
     # 3rd party
+    "channels_auth_token_middlewares",
     "rest_framework",
     "drf_spectacular",
     "rest_framework_simplejwt",
@@ -53,6 +55,8 @@ INSTALLED_APPS = [
     "users",
 ]
 
+
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 AUTH_USER_MODEL = "users.User"
 SPECTACULAR_SETTINGS = {
     "TITLE": "Tasty Takout API",
@@ -98,7 +102,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ASGI_APPLICATION = "tastytakout.asgi.application"
 WSGI_APPLICATION = "tastytakout.wsgi.application"
 
 
