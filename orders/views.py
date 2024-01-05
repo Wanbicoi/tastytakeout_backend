@@ -1,5 +1,6 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated 
+from utils.permissions import IsOwner
 from rest_framework.response import Response
 from django.utils import timezone
 from django.db.models import F
@@ -36,7 +37,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         except Order.DoesNotExist:
             return Response({'message': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
         
-        order = self.get_object()
         voucher=order.voucher
         order_total=order.total
 
@@ -50,6 +50,30 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response({'valid': False, 'message': 'Order total does not meet voucher requirements'})
 
         return Response({'valid': True, 'message': 'Voucher is valid for the order'})
+
+
+    @extend_schema(request=None)
+    @action(detail=True, methods=["patch"])
+    def deny(self, request, pk=None):
+        try:
+            order = Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            return Response({'message': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
+        order.status = "DENIED"
+        order.save()
+        return Response({'message': 'Order denied'}, status=status.HTTP_200_OK)
+    
+
+    @extend_schema(request=None)
+    @action(detail=True, methods=["patch"])
+    def approve(self, request, pk=None):
+        try:
+            order = Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            return Response({'message': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
+        order.status = "APPROVED"
+        order.save()
+        return Response({'message': 'Order approved'}, status=status.HTTP_200_OK)
 
 
 class VoucherViewSet(viewsets.ModelViewSet):
