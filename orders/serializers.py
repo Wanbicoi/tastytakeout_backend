@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Order, OrderFood, Voucher
-
+from foods.serializers import FoodSerializer
 
 class OrderFoodSerializer(serializers.ModelSerializer):
     class Meta:

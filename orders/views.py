@@ -4,10 +4,15 @@ from rest_framework.response import Response
 from django.utils import timezone
 from django.db.models import F
 from rest_framework.decorators import api_view
+from drf_spectacular.utils import extend_schema
+from rest_framework.decorators import action
+from rest_framework import status
+from django.http import JsonResponse
 
-from orders.models import Order, Voucher
+from carts.models import Cart
+from orders.models import Order, Voucher, OrderFood
 from orders.serializers import GetOrderSerializer, OrderSerializer, VoucherSerializer
-
+from carts.serializers import GetCartSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -21,7 +26,30 @@ class OrderViewSet(viewsets.ModelViewSet):
             return OrderSerializer
 
     def get_queryset(self):  # type: ignore
-        return Order.objects.filter(buyer=self.request.user)
+        return Order.objects.filter(buyer=self.request.user)     
+
+
+    @action(detail=True, methods=["get"])
+    def validate_voucher(self, request, pk=None):
+        try:
+            order = Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            return Response({'message': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        order = self.get_object()
+        voucher=order.voucher
+        order_total=order.total
+
+        if voucher.end < timezone.now():
+            return Response({'valid': False, 'message': 'Voucher has expired'})
+        
+        if voucher.used_quantity >= voucher.quantity:
+            return Response({'valid': False, 'message': 'Voucher has been fully used'})
+        
+        if order_total < voucher.min_price:
+            return Response({'valid': False, 'message': 'Order total does not meet voucher requirements'})
+
+        return Response({'valid': True, 'message': 'Voucher is valid for the order'})
 
 
 class VoucherViewSet(viewsets.ModelViewSet):
