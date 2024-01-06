@@ -29,8 +29,9 @@ class Order(models.Model):
     address = models.TextField()
     ORDER_STATUS_CHOICES = [
         ("PENDING", "Pending"),
-        ("APPROVED", "Approved"),
-        ("DENIED", "Denied"),
+        ("PREPARE", "Prepare"),
+        ("DELIVERING", "Delivering"),
+        ("COMPLETED", "Completed"),
     ]
     status = models.CharField(
         max_length=8, choices=ORDER_STATUS_CHOICES, default="PENDING"
