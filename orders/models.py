@@ -34,7 +34,7 @@ class Order(models.Model):
         ("COMPLETED", "Completed"),
     ]
     status = models.CharField(
-        max_length=8, choices=ORDER_STATUS_CHOICES, default="PENDING"
+        max_length=10, choices=ORDER_STATUS_CHOICES, default="PENDING"
     )
     total = models.IntegerField()
     created_at = models.DateTimeField(default=timezone.now)
