@@ -8,7 +8,9 @@ class Category(models.Model):
 
 
 class Food(models.Model):
-    store = models.ForeignKey("stores.Store", on_delete=models.CASCADE)
+    store = models.ForeignKey(
+        "stores.Store", related_name="foods", on_delete=models.CASCADE
+    )
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image_urls = models.JSONField()  # Array of strings
     name = models.TextField()
