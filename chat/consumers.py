@@ -13,7 +13,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         tmp = self.room_name.split("_")
         buyer_id = tmp[0]
         # store_id = tmp[1]  # TODO: Check valid store
-        print(user_id)
         if self.role == "BUYER" and user_id != buyer_id:
             return
 
@@ -40,18 +39,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             {"type": "chat.message", "message": message, "role": self.role},
         )
 
-    @database_sync_to_async
-    def create_chat(self, message, sender):
-        tmp = self.room_name.split("_")
-        buyer_id = tmp[0]
-        store_id = tmp[1]
-        Chat.objects.create(
-            message=message,
-            sender=sender if sender == "BUYER" else "STORE",
-            buyer_id=buyer_id,
-            store_id=store_id,
-        )
-
     # Receive message from room group
     async def chat_message(self, event):
         message = event["message"]
@@ -59,4 +46,3 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message, "sender": sender}))
-        await self.create_chat(message, self.role)

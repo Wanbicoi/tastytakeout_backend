@@ -1,18 +1,6 @@
 from rest_framework import serializers
-from foods.models import Food
-from orders.models import Voucher
-
-
-class FoodSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Food
-        fields = ["id", "name", "description"]  # Include only the necessary fields
-
-
-class VoucherSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Voucher
-        fields = ["id", "name", "discount"]  # Include only the necessary fields
+from foods.serializers import FoodSerializer
+from orders.serializers import VoucherSerializer
 
 
 class GetHomeDataSerializer(serializers.Serializer):
