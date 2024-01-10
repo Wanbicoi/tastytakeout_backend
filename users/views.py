@@ -107,7 +107,7 @@ class FCMTokenView(generics.CreateAPIView):
     serializer_class = FCMTokenSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         token = serializer.data.get("token")

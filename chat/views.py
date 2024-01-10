@@ -9,7 +9,7 @@ import re
 from firebase_admin import messaging
 from stores.models import Store
 
-from users.models import FCMToken
+from users.models import FCMToken, User
 
 
 @api_view(["GET"])
@@ -59,6 +59,7 @@ def retrieve_chat(request, chat_room_id):
         return Response(serializer.data)
     elif request.method == "POST":
         if role == "BUYER":
+            print("store_id", store_id)
             data = {
                 "message": request.data.get("message"),
                 "sender": "BUYER",
@@ -69,17 +70,20 @@ def retrieve_chat(request, chat_room_id):
             serializer.is_valid(raise_exception=True)
             serializer.save()
 
-            fcm_tokens = FCMToken.objects.filter(user=request.user)
-            for fcm_token in fcm_tokens:
-                data = {
-                    "message": request.data.get("message"),
-                    "sender": "BUYER",
-                    "store": str(store_id),
-                    "buyer": str(request.user.id),
-                }
-                message = messaging.Message(data=data, token=fcm_token.key)
-                response = messaging.send(message)
-                print("gui ne", response)
+            print("store_id", store_id)
+            store = Store.objects.get(id=store_id)
+            if store is not None:
+                fcm_tokens = FCMToken.objects.filter(user=store.owner)
+                for fcm_token in fcm_tokens:
+                    message = messaging.Message(
+                        data={
+                            "sender": store.owner.username,
+                            "message": request.data.get("message"),
+                        },
+                        token=fcm_token.key,
+                    )
+                    response = messaging.send(message)
+                    print("gui ne", response)
         else:
             store_id = request.auth.payload.get("store_id")
             data = {
@@ -91,16 +95,17 @@ def retrieve_chat(request, chat_room_id):
             serializer = ChatSerializer(data=data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            store = Store.objects.get(id=store_id)
-            fcm_tokens = FCMToken.objects.filter(user=store.owner)
+
+            fcm_tokens = FCMToken.objects.filter(user=buyer_id)
+            receiver = User.objects.get(id=buyer_id)
             for fcm_token in fcm_tokens:
-                data = {
-                    "message": request.data.get("message"),
-                    "sender": "STORE",
-                    "store": str(store_id),
-                    "buyer": str(buyer_id),
-                }
-                message = messaging.Message(data=data, token=fcm_token.key)
+                message = messaging.Message(
+                    data={
+                        "message": request.data.get("message"),
+                        "sender": receiver.username,
+                    },
+                    token=fcm_token.key,
+                )
                 response = messaging.send(message)
                 print("gui ne", response)
         return Response()
