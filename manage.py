@@ -2,6 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import firebase_admin
+
+from firebase_admin import credentials
+
+
+cred = credentials.Certificate(
+    "utils/tastytakout-firebase-adminsdk-h21ka-1f7dc51960.json"
+)
+
+firebase_admin.initialize_app(cred)
 
 
 def main():

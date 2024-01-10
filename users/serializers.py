@@ -45,8 +45,13 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 class LoginUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+    fcm_token = serializers.CharField()
 
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
+
+
+class FCMTokenSerializer(serializers.Serializer):
+    token = serializers.CharField()
