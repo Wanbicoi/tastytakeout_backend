@@ -1,8 +1,32 @@
 from rest_framework import serializers
+from stores.models import Store
+
+from stores.serializers import FoodSerializer
 from .models import User
 
 
+class ProfileStoreSerializer(serializers.ModelSerializer):
+    likers_count = serializers.SerializerMethodField()
+    foods = FoodSerializer(many=True)
+
+    def get_likers_count(self, obj):
+        return obj.likers.count()
+
+    class Meta:
+        model = Store
+        fields = [
+            "id",
+            "name",
+            "image_url",
+            "address",
+            "likers_count",
+            "foods",
+        ]
+
+
 class ProfileSerializer(serializers.ModelSerializer):
+    stores = ProfileStoreSerializer(many=True)
+
     class Meta:
         model = User
         fields = [
@@ -15,6 +39,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "address",
             "date_of_birth",
             "gender",
+            "stores",
         ]
 
     def __init__(self, *args, **kwargs):

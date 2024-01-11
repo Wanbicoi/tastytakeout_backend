@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 class Store(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name="stores", on_delete=models.CASCADE)
     name = models.TextField()
     image_url = models.TextField(null=True)
     phone = models.TextField(null=True)
