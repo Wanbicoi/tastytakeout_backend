@@ -79,6 +79,21 @@ class FoodViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @extend_schema(request=LikeFoodSerializer)
+    @action(detail=True, methods=["post"])
+    def like(self, request, pk=None):
+        store = self.get_object()
+        serializer = LikeFoodSerializer(data=request.data)
+        if serializer.is_valid():
+            is_liked = serializer.data.get("is_liked", False)  # type: ignore
+            if is_liked:
+                store.likers.add(request.user)
+            else:
+                store.likers.remove(request.user)
+            store.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @permission_classes([IsAuthenticated])
 class CategoryViewSet(viewsets.ModelViewSet):

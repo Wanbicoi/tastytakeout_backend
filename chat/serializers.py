@@ -16,7 +16,19 @@ class ChatProfileSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "email", "avatar_url", "name"]
 
 
+class OpenApiChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ("message",)
+
+
 class ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ("buyer", "store", "message", "sender")
+
+
+class GetChatSerializer(serializers.ModelSerializer):
     chat_room_id = serializers.SerializerMethodField()
     store = ChatStoreSerializer()
     buyer = ChatProfileSerializer()

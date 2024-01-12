@@ -41,3 +41,8 @@ class User(AbstractUser):
 
     def get_short_name(self) -> str:
         return self.name
+
+
+class FCMToken(models.Model):
+    user = models.ForeignKey(User, related_name="fcm_tokens", on_delete=models.CASCADE)
+    key = models.TextField()

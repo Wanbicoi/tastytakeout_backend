@@ -5,8 +5,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from users.models import FCMToken
+
 from .serializers import (
     ChangePasswordSerializer,
+    FCMTokenSerializer,
     LoginUserSerializer,
     ProfileSerializer,
     RegisterUserSerializer,
@@ -98,3 +101,17 @@ class ChangePasswordView(generics.UpdateAPIView):
             )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FCMTokenView(generics.CreateAPIView):
+    serializer_class = FCMTokenSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        token = serializer.data.get("token")
+        FCMToken.objects.get_or_create(
+            user=request.user, key=token, defaults={"key": token}
+        )
+        return Response()

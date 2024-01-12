@@ -1,11 +1,20 @@
 from rest_framework import serializers
 
+from foods.models import Food
+
 from .models import Store
+
+
+class FoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Food
+        fields = "__all__"
 
 
 class GetStoreSerializer(serializers.ModelSerializer):
     is_liked = serializers.SerializerMethodField()
     likers_count = serializers.SerializerMethodField()
+    foods = FoodSerializer(many=True)
 
     def get_is_liked(self, obj):
         request = self.context.get("request")
@@ -28,6 +37,7 @@ class GetStoreSerializer(serializers.ModelSerializer):
             "address",
             "is_liked",
             "likers_count",
+            "foods",
         ]
 
 
