@@ -27,7 +27,10 @@ class OrderViewSet(viewsets.ModelViewSet):
             return OrderSerializer
 
     def get_queryset(self):  # type: ignore
-        return Order.objects.filter(buyer=self.request.user)     
+        if self.request.user.role == "BUYER":  # type:ignore
+            return Order.objects.filter(buyer=self.request.user)
+        store_id = self.request.auth.payload.get("store_id")  # type:ignore
+        return Order.objects.filter(foods__food__store=store_id)
 
 
     @action(detail=True, methods=["get"])
@@ -51,31 +54,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         return Response({'valid': True, 'message': 'Voucher is valid for the order'})
 
-
-    @extend_schema(request=None)
-    @action(detail=True, methods=["patch"])
-    def deny(self, request, pk=None):
-        try:
-            order = Order.objects.get(pk=pk)
-        except Order.DoesNotExist:
-            return Response({'message': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
-        order.status = "DENIED"
-        order.save()
-        return Response({'message': 'Order denied'}, status=status.HTTP_200_OK)
-    
-
-    @extend_schema(request=None)
-    @action(detail=True, methods=["patch"])
-    def approve(self, request, pk=None):
-        try:
-            order = Order.objects.get(pk=pk)
-        except Order.DoesNotExist:
-            return Response({'message': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
-        order.status = "APPROVED"
-        order.save()
-        return Response({'message': 'Order approved'}, status=status.HTTP_200_OK)
-
-
+        
 class VoucherViewSet(viewsets.ModelViewSet):
     queryset = Voucher.objects.all()
     serializer_class = VoucherSerializer
