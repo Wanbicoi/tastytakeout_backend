@@ -30,7 +30,9 @@ class OrderViewSet(viewsets.ModelViewSet):
         if self.request.user.role == "BUYER":  # type:ignore
             return Order.objects.filter(buyer=self.request.user)
         store_id = self.request.auth.payload.get("store_id")  # type:ignore
-        return Order.objects.filter(foods__food__store=store_id)
+        return Order.objects.filter(
+            foods__food__store=store_id
+        ).distinct()  # :> chả biết sao chạy đc nữa muôn đời ghét python
 
 
     @action(detail=True, methods=["get"])
