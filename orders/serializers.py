@@ -1,4 +1,7 @@
+from django.db.models import fields
 from rest_framework import serializers
+
+from users.models import User
 from .models import Order, OrderFood, Voucher
 
 
@@ -28,8 +31,25 @@ class VoucherSerializer(serializers.ModelSerializer):
         ]
 
 
+class BuyerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "username",
+            "email",
+            "avatar_url",
+            "name",
+            "bio",
+            "address",
+            "date_of_birth",
+            "gender",
+        ]
+
+
 class GetOrderSerializer(serializers.ModelSerializer):
     foods = OrderFoodSerializer(many=True)
+    buyer = BuyerSerializer()
 
     class Meta:
         model = Order
