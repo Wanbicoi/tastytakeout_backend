@@ -76,10 +76,10 @@ def retrieve_chat(request, chat_room_id):
                 fcm_tokens = FCMToken.objects.filter(user=store.owner)
                 for fcm_token in fcm_tokens:
                     message = messaging.Message(
-                        data={
-                            "sender": store.owner.username,
-                            "message": request.data.get("message"),
-                        },
+                        notification=messaging.Notification(
+                            body=request.data.get("message"),
+                            title=store.owner.username,
+                        ),
                         token=fcm_token.key,
                     )
                     response = messaging.send(message)
@@ -100,10 +100,10 @@ def retrieve_chat(request, chat_room_id):
             receiver = User.objects.get(id=buyer_id)
             for fcm_token in fcm_tokens:
                 message = messaging.Message(
-                    data={
-                        "message": request.data.get("message"),
-                        "sender": receiver.username,
-                    },
+                    notification=messaging.Notification(
+                        body=request.data.get("message"),
+                        title=receiver.username,
+                    ),
                     token=fcm_token.key,
                 )
                 response = messaging.send(message)
