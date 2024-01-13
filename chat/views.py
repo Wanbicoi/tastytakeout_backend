@@ -78,7 +78,7 @@ def retrieve_chat(request, chat_room_id):
                     message = messaging.Message(
                         notification=messaging.Notification(
                             body=request.data.get("message"),
-                            title=store.owner.username,
+                            title=store.owner.name,
                         ),
                         token=fcm_token.key,
                     )
@@ -102,7 +102,7 @@ def retrieve_chat(request, chat_room_id):
                 message = messaging.Message(
                     notification=messaging.Notification(
                         body=request.data.get("message"),
-                        title=receiver.username,
+                        title=receiver.name,
                     ),
                     token=fcm_token.key,
                 )
