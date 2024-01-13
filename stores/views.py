@@ -164,4 +164,29 @@ class StatisticViewSet(viewsets.ModelViewSet):
 
         except Exception as e:
             return Response({'error': str(e)})
+        
+
+    @extend_schema(request=None)
+    @action(detail=True, methods=["get"])
+    def home_statistic(self, request, pk=None):
+        try:
+            today = datetime.today()
+
+            store = self.get_object()
+
+            orders = Order.objects.filter(store=store.pk,created_at__date=today)
+            count_orders = orders.count()
+            revenue = orders.aggregate(total_revenue=Sum('total'))['total_revenue'] or 0
+
+            response_data = {
+                'result': 'Success',
+                'count_orders': count_orders,
+                'revenue': revenue,
+            }
+
+            return Response(response_data)      
+
+        except Exception as e:
+            return Response({'error': str(e)})
+
 
