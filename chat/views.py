@@ -50,10 +50,14 @@ def retrieve_chat(request, chat_room_id):
     role = request.user.role
     if request.method == "GET":
         if role == "BUYER":
-            chats = Chat.objects.filter(buyer=request.user, store=store_id)
+            chats = Chat.objects.select_related("buyer", "store").filter(
+                buyer=request.user, store=store_id
+            )
         else:
             store_id = request.auth.payload.get("store_id")
-            chats = Chat.objects.filter(store=store_id, buyer=buyer_id)
+            chats = Chat.objects.select_related("buyer", "store").filter(
+                store=store_id, buyer=buyer_id
+            )
 
         serializer = GetChatSerializer(chats, many=True)
         return Response(serializer.data)
