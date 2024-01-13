@@ -7,11 +7,15 @@ from rest_framework.views import Response, status
 from utils.permissions import IsSeller, IsOwner
 
 from .models import Store
-from .serializers import GetStoreSerializer, LikeStoreSerializer, StoreSerializer, VerificationSerializer
+from .serializers import GetStoreSerializer, LikeStoreSerializer, StoreSerializer, VerificationSerializer, TimeStatisticSerializer
 from django_filters import rest_framework as filters
 from stores.filters import StoreFilter
 
 import datetime
+
+from orders.models import Order, OrderFood
+from django.db.models.functions import ExtractMonth, ExtractYear, ExtractDay, Coalesce
+from django.db.models import Sum, Count, F, DecimalField
 
 class StoreViewSet(viewsets.ModelViewSet):
     queryset = Store.objects.all()
@@ -67,4 +71,50 @@ class VerificationViewSet(viewsets.ModelViewSet):
             store.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class StatisticViewSet(viewsets.ModelViewSet):
+    queryset = Store.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwner]
+
+    @extend_schema(request=TimeStatisticSerializer)
+    @action(detail=True, methods=["post"])
+    def get_best_sellings(self, request, pk=None):
+        try:
+            serializer = TimeStatisticSerializer(data=request.data)
+            if serializer.is_valid():
+                store = self.get_object()
+
+                month = serializer.data.get('month')
+                year = serializer.data.get('year')
+
+                orders = Order.objects.filter(store=store.pk).filter(created_at__month=month, created_at__year=year)
+                order_foods = OrderFood.objects.filter(order__in=orders)
+                
+                # Aggregate sales quantity for each food
+                sales_data = (order_foods.values('food','food__name')
+                                        .annotate(
+                                            total_sales=Coalesce(Sum('quantity'), 0),
+                                            revenue=Coalesce(Sum(F('quantity') * F('food__price')), 0, output_field=DecimalField())
+                                        )
+                                        .order_by('-total_sales')[:5])
+                
+                response_data = {
+                    'result': 'Success',
+                    'best_sellings': [
+                        {
+                            'food_name': item['food__name'],
+                            'total_sales': item['total_sales'],
+                            'revenue': item['revenue']
+                        }
+                        for item in sales_data
+                    ]
+                }
+
+                return Response(response_data)
+        
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({'error': str(e)})
 

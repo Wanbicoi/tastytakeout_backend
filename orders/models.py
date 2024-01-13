@@ -25,6 +25,7 @@ class Voucher(models.Model):
 
 class Order(models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
     voucher = models.ForeignKey(Voucher, on_delete=models.CASCADE, null=True)
     address = models.TextField()
     ORDER_STATUS_CHOICES = [

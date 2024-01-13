@@ -67,8 +67,4 @@ class FoodSerializer(serializers.ModelSerializer):
 
 
 class LikeFoodSerializer(serializers.Serializer):
-<<<<<<< HEAD
     is_liked = serializers.BooleanField()
-=======
-    is_liked = serializers.BooleanField()
->>>>>>> origin/master
