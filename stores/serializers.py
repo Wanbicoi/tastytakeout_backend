@@ -60,3 +60,13 @@ class VerificationSerializer(serializers.ModelSerializer):
 class TimeStatisticSerializer(serializers.Serializer):
     month = serializers.IntegerField()
     year = serializers.IntegerField()
+
+
+class FrequencyStatisticSerializer(serializers.Serializer):
+    FREQUENCY_CHOICES = [
+        ('day', 'day'),
+        ('month', 'month'),
+        ('year', 'year'),
+    ]
+    
+    frequency = serializers.ChoiceField(choices=FREQUENCY_CHOICES)
