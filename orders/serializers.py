@@ -71,3 +71,7 @@ class OrderSerializer(serializers.ModelSerializer):
         for food_data in foods_data:
             OrderFood.objects.create(order=order, **food_data)
         return order
+
+
+class YearSerializer(serializers.Serializer):
+    year = serializers.IntegerField()

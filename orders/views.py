@@ -12,8 +12,12 @@ from django.http import JsonResponse
 
 from carts.models import Cart
 from orders.models import Order, Voucher, OrderFood
-from orders.serializers import GetOrderSerializer, OrderSerializer, VoucherSerializer
+from orders.serializers import GetOrderSerializer, OrderSerializer, VoucherSerializer, YearSerializer
 from carts.serializers import GetCartSerializer
+
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncMonth
+from rest_framework.schemas.openapi import AutoSchema
 
 class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -89,3 +93,65 @@ def count_valid_vouchers(request):
     ).count()
 
     return Response({"valid_vouchers_count": valid_vouchers_count}, status=200)
+
+
+class CustomAutoSchema(AutoSchema):
+    def get_operation(self, path, method):
+        operation = super().get_operation(path, method)
+        if method.lower() == "post":
+            request_body = {
+                "required": True,
+                "content": {
+                    "application/json": {
+                        "schema": YearSerializer().to_schema(),
+                    }
+                }
+            }
+            if "requestBody" not in operation:
+                operation["requestBody"] = request_body
+            else:
+                operation["requestBody"].update(request_body)
+        return operation
+    
+
+class StatisticViewSet(viewsets.ViewSet):
+    queryset = Order.objects.all()
+    permission_classes = [IsAuthenticated] #admin
+    schema = CustomAutoSchema()
+    
+    @extend_schema(request=YearSerializer)
+    @action(detail=False, methods=["post"])
+    def get_revenue(self, request):
+        try:            
+            serializer = YearSerializer(data=request.data)
+            if serializer.is_valid():
+                year = serializer.data.get("year", False)
+
+                orders = Order.objects.filter(created_at__year=year)
+                count_orders = orders.count()
+
+                complete_orders = orders.filter(status='COMPLETED')
+
+                revenue_data = complete_orders.annotate(month=TruncMonth('created_at')
+                                            ).values('month'
+                                            ).annotate(total_revenue_month=Sum('total')
+                                            ).order_by('month')
+                
+                revenue = complete_orders.aggregate(total_revenue=Sum('total'))['total_revenue'] or 0
+
+                count_complete_orders = complete_orders.count()
+                
+                response_data = {
+                    'result': 'Success',
+                    'revenue_month': list(revenue_data),
+                    'total_revenue': revenue,
+                    'count_orders': count_orders,
+                    'count_complete_orders': count_complete_orders
+                }
+
+                return Response(response_data)      
+              
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({'error': str(e)})
