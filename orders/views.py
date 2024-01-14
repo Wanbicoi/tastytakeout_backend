@@ -1,12 +1,36 @@
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets, mixins
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from django.utils import timezone
 from django.db.models import F
 from rest_framework.decorators import api_view
 
-from orders.models import Order, Voucher
-from orders.serializers import GetOrderSerializer, OrderSerializer, VoucherSerializer
+from orders.models import Event, Order, Voucher
+from orders.serializers import (
+    EventSerializer,
+    GetEventSerializer,
+    GetOrderSerializer,
+    OrderSerializer,
+    VoucherSerializer,
+)
+
+
+class EventViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.ViewSetMixin,
+    GenericAPIView,
+):
+    queryset = Event.objects.prefetch_related("vouchers").all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):  # type: ignore
+        if self.request.method == "GET":
+            return GetEventSerializer
+        else:
+            return EventSerializer
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -22,10 +46,15 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):  # type: ignore
         if self.request.user.role == "BUYER":  # type:ignore
-            return Order.objects.select_related("buyer").filter(buyer=self.request.user)
+            return (
+                Order.objects.select_related("buyer")
+                .prefetch_related("foods")
+                .filter(buyer=self.request.user)
+            )
         store_id = self.request.auth.payload.get("store_id")  # type:ignore
         return (
             Order.objects.select_related("buyer")
+            .prefetch_related("foods")
             .filter(foods__food__store=store_id)
             .distinct()
         )  # :> chả biết sao chạy đc nữa muôn đời ghét python

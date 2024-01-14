@@ -18,7 +18,11 @@ from django_filters import rest_framework as filters
 
 
 class FoodViewSet(viewsets.ModelViewSet):
-    queryset = Food.objects.all()
+    queryset = (
+        Food.objects.prefetch_related("comments")
+        .select_related("category", "store")
+        .all()
+    )
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     filter_backends = (filters.DjangoFilterBackend,)

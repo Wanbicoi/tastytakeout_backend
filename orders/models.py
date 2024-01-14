@@ -1,8 +1,15 @@
 from django.db import models
 from foods.models import Food
 from users.models import User
-from stores.models import Store
 from django.utils import timezone
+
+
+class Event(models.Model):
+    imageUrl = models.CharField()
+    name = models.CharField()
+    description = models.CharField()
+    begin = models.DateTimeField(default=timezone.now)
+    end = models.DateTimeField(default=timezone.now)
 
 
 class Voucher(models.Model):
@@ -21,6 +28,10 @@ class Voucher(models.Model):
     discount_type = models.CharField(max_length=8, choices=DISCOUNT_TYPE_CHOICES)
     max_price = models.IntegerField()
     min_price = models.IntegerField()
+
+    event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name="vouchers", null=True
+    )
 
 
 class Order(models.Model):
