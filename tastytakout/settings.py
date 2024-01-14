@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "stores",
     "users",
     "key_values",
+    "notifications",
 ]
 
 

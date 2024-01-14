@@ -20,6 +20,7 @@ class EventViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
     mixins.DestroyModelMixin,
+    mixins.RetrieveModelMixin,
     viewsets.ViewSetMixin,
     GenericAPIView,
 ):
