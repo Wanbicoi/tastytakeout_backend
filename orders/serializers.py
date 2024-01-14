@@ -44,10 +44,11 @@ class EventSerializer(serializers.ModelSerializer):
         vouchers_data = validated_data.pop("vouchers", [])
 
         event = Event.objects.create(**validated_data)
-        vouchers = get_list_or_404(
-            Voucher, pk__in=[voucher["id"] for voucher in vouchers_data]
-        )  # WARN Đừng bao giờ dùng Language ko có type-safe như python, javascript nhé :))) sucks
-        event.vouchers.add(*vouchers)
+        if len(vouchers_data) > 0:
+            vouchers = get_list_or_404(
+                Voucher, pk__in=[voucher["id"] for voucher in vouchers_data]
+            )  # WARN Đừng bao giờ dùng Language ko có type-safe như python, javascript nhé :))) sucks
+            event.vouchers.add(*vouchers)
         return event
 
 

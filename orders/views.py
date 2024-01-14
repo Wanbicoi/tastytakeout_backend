@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from django.utils import timezone
 from django.db.models import F
-from rest_framework.decorators import api_view
+from rest_framework.decorators import action, api_view
 
 from orders.models import Event, Order, Voucher
 from orders.serializers import (
@@ -14,6 +14,8 @@ from orders.serializers import (
     OrderSerializer,
     VoucherSerializer,
 )
+from users.models import User
+from utils.notify import notify
 
 
 class EventViewSet(
@@ -32,6 +34,15 @@ class EventViewSet(
             return GetEventSerializer
         else:
             return EventSerializer
+
+    def perform_create(self, serializer):
+        event = serializer.save()
+
+        title = "Sự kiện ưu đãi 🤟"
+        body = f"Ghé qua sự kiện: {event.name}"
+        buyers = User.objects.filter(role="BUYER")
+        for buyer in buyers:
+            notify(title=title, body=body, userId=buyer.id)  # type:ignore
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -59,6 +70,15 @@ class OrderViewSet(viewsets.ModelViewSet):
             .filter(foods__food__store=store_id)
             .distinct()
         )  # :> chả biết sao chạy đc nữa muôn đời ghét python
+
+    def perform_update(self, serializer):
+        order = serializer.save()
+        notify(
+            title="Đơn hàng đang được xử lý 🛳️",
+            body="Mã đơn hàng #order_" + str(order.id),  # type:ignore
+            userId=order.buyer.id,  # type:ignore
+        )
+        return order
 
 
 class VoucherViewSet(viewsets.ModelViewSet):

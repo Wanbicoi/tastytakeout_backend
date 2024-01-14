@@ -16,6 +16,10 @@ class NotificationViewSet(
     serializer_class = NotificationSerializer
 
     def get_queryset(self):  # type: ignore
-        return Notification.objects.select_related("user").filter(
-            user=self.request.user
+        return (
+            Notification.objects.select_related("user")
+            .filter(user=self.request.user)
+            .order_by(
+                "-created_at",
+            )
         )
