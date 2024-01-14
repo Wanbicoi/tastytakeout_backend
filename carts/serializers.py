@@ -34,4 +34,4 @@ class GetCartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cart
-        fields = ("quantity", "food")
+        fields = ("id", "quantity", "food")
