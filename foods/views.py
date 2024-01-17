@@ -67,6 +67,21 @@ class FoodViewSet(viewsets.ModelViewSet):
         return Response(
             {"detail": "Invalid method"}, status=status.HTTP_405_METHOD_NOT_ALLOWED
         )
+    
+    @extend_schema(request=LikeFoodSerializer)
+    @action(detail=True, methods=["post"])
+    def like(self, request, pk=None):
+        food = self.get_object()
+        serializer = LikeFoodSerializer(data=request.data)
+        if serializer.is_valid():
+            is_liked = serializer.data.get("is_liked", False)  # type: ignore
+            if is_liked:
+                food.likers.add(request.user)
+            else:
+                food.likers.remove(request.user)
+            food.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @extend_schema(request=LikeFoodSerializer)
     @action(detail=True, methods=["post"])

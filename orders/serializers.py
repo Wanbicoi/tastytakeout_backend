@@ -5,6 +5,8 @@ from rest_framework import serializers
 from users.models import User
 from .models import Event, Order, OrderFood, Voucher
 
+from .models import Order, OrderFood, Voucher
+from foods.serializers import FoodSerializer
 
 class OrderFoodSerializer(serializers.ModelSerializer):
     class Meta:
@@ -92,3 +94,7 @@ class OrderSerializer(serializers.ModelSerializer):
         for food_data in foods_data:
             OrderFood.objects.create(order=order, **food_data)
         return order
+
+
+class YearSerializer(serializers.Serializer):
+    year = serializers.IntegerField()

@@ -49,3 +49,24 @@ class StoreSerializer(serializers.ModelSerializer):
 
 class LikeStoreSerializer(serializers.Serializer):
     is_liked = serializers.BooleanField()
+
+
+class VerificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = ['license_image_url', 'owner_name', 'note']
+
+
+class TimeStatisticSerializer(serializers.Serializer):
+    month = serializers.IntegerField()
+    year = serializers.IntegerField()
+
+
+class FrequencyStatisticSerializer(serializers.Serializer):
+    FREQUENCY_CHOICES = [
+        ('day', 'day'),
+        ('month', 'month'),
+        ('year', 'year'),
+    ]
+    
+    frequency = serializers.ChoiceField(choices=FREQUENCY_CHOICES)

@@ -7,12 +7,14 @@ from orders.views import (
     VoucherViewSet,
     count_valid_vouchers,
 )
+from orders.views import OrderViewSet, VoucherViewSet, count_valid_vouchers, StatisticViewSet
 
 
 router = DefaultRouter()
 router.register(r"orders", OrderViewSet)
 router.register(r"vouchers", VoucherViewSet)
 router.register(r"events", EventViewSet)
+router.register(r"statistic", StatisticViewSet)
 urlpatterns = [
     path(
         "vouchers/count-valid-vouchers/",
