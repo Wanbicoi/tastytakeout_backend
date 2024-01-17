@@ -16,9 +16,10 @@ from orders.serializers import (
     YearSerializer,
 )
 
+from .schema import YearSchema
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
-from rest_framework.schemas.openapi import AutoSchema
+
 
 from orders.models import Event, Order, Voucher
 from orders.serializers import (
@@ -154,29 +155,10 @@ def count_valid_vouchers(request):
     return Response({"valid_vouchers_count": valid_vouchers_count}, status=200)
 
 
-class CustomAutoSchema(AutoSchema):
-    def get_operation(self, path, method):
-        operation = super().get_operation(path, method)
-        if method.lower() == "post":
-            request_body = {
-                "required": True,
-                "content": {
-                    "application/json": {
-                        "schema": YearSerializer().to_schema(),
-                    }
-                },
-            }
-            if "requestBody" not in operation:
-                operation["requestBody"] = request_body
-            else:
-                operation["requestBody"].update(request_body)
-        return operation
-
-
 class StatisticViewSet(viewsets.ViewSet):
     queryset = Order.objects.all()
     permission_classes = [IsAuthenticated]  # admin
-    schema = CustomAutoSchema()
+    schema = YearSchema()
 
     @extend_schema(request=YearSerializer)
     @action(detail=False, methods=["post"])

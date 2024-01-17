@@ -4,6 +4,7 @@ from .views import (
     UpdateProfileView,
     account_registration,
     FCMTokenView,
+    count_user,
 )
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -13,4 +14,5 @@ urlpatterns = [
     path("users/password", ChangePasswordView.as_view()),
     path("users/login", TokenObtainPairView.as_view()),
     path("users/fcm_token", FCMTokenView.as_view()),
+    path("users/count_user", count_user),
 ]

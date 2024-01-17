@@ -15,6 +15,7 @@ from .serializers import (
     RegisterUserSerializer,
 )
 
+from .models import User
 
 @extend_schema(request=RegisterUserSerializer)
 @api_view(["POST"])
@@ -115,3 +116,24 @@ class FCMTokenView(generics.CreateAPIView):
             user=request.user, key=token, defaults={"key": token}
         )
         return Response()
+    
+
+@api_view(["GET"])
+def count_user(request):
+    try:
+        buyer = User.objects.filter(role="BUYER")
+        count_buyers = buyer.count()
+
+        seller = User.objects.filter(role="SELLER")
+        count_sellers = seller.count()
+
+        response_data = {
+            "result": "Success",
+            "count_buyer": count_buyers,
+            "count_seller": count_sellers,
+        }
+
+        return Response(response_data)
+
+    except Exception as e:
+        return Response({"error": str(e)})
