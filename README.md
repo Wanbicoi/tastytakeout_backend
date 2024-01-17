@@ -51,7 +51,7 @@ Sample accounts:
 
 ```json
 {
-  "username": "123",
+  "username": "0305021142",
   "password": "1234"
 }
 ```
