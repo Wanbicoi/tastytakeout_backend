@@ -6,13 +6,24 @@ from django.utils import timezone
 from django.db.models import F
 from rest_framework.decorators import action, api_view
 
+from drf_spectacular.utils import extend_schema
+from rest_framework import status
+
+from orders.serializers import (
+    GetOrderSerializer,
+    OrderSerializer,
+    VoucherSerializer,
+    YearSerializer,
+)
+
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth
+from rest_framework.schemas.openapi import AutoSchema
+
 from orders.models import Event, Order, Voucher
 from orders.serializers import (
     EventSerializer,
     GetEventSerializer,
-    GetOrderSerializer,
-    OrderSerializer,
-    VoucherSerializer,
 )
 from users.models import User
 from utils.notify import notify
@@ -43,26 +54,7 @@ class EventViewSet(
         buyers = User.objects.filter(role="BUYER")
         for buyer in buyers:
             notify(title=title, body=body, userId=buyer.id)  # type:ignore
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated 
-from utils.permissions import IsOwner
-from rest_framework.response import Response
-from django.utils import timezone
-from django.db.models import F
-from rest_framework.decorators import api_view
-from drf_spectacular.utils import extend_schema
-from rest_framework.decorators import action
-from rest_framework import status
-from django.http import JsonResponse
 
-from carts.models import Cart
-from orders.models import Order, Voucher, OrderFood
-from orders.serializers import GetOrderSerializer, OrderSerializer, VoucherSerializer, YearSerializer
-from carts.serializers import GetCartSerializer
-
-from django.db.models import Sum, Count
-from django.db.models.functions import TruncMonth
-from rest_framework.schemas.openapi import AutoSchema
 
 class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -99,29 +91,35 @@ class OrderViewSet(viewsets.ModelViewSet):
         )
         return order
 
-
     @action(detail=True, methods=["get"])
     def validate_voucher(self, request, pk=None):
         try:
             order = Order.objects.get(pk=pk)
         except Order.DoesNotExist:
-            return Response({'message': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        voucher=order.voucher
-        order_total=order.total
+            return Response(
+                {"message": "Order not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        voucher = order.voucher
+        order_total = order.total
 
         if voucher.end < timezone.now():
-            return Response({'valid': False, 'message': 'Voucher has expired'})
-        
+            return Response({"valid": False, "message": "Voucher has expired"})
+
         if voucher.used_quantity >= voucher.quantity:
-            return Response({'valid': False, 'message': 'Voucher has been fully used'})
-        
+            return Response({"valid": False, "message": "Voucher has been fully used"})
+
         if order_total < voucher.min_price:
-            return Response({'valid': False, 'message': 'Order total does not meet voucher requirements'})
+            return Response(
+                {
+                    "valid": False,
+                    "message": "Order total does not meet voucher requirements",
+                }
+            )
 
-        return Response({'valid': True, 'message': 'Voucher is valid for the order'})
+        return Response({"valid": True, "message": "Voucher is valid for the order"})
 
-        
+
 class VoucherViewSet(viewsets.ModelViewSet):
     queryset = Voucher.objects.all()
     serializer_class = VoucherSerializer
@@ -166,24 +164,24 @@ class CustomAutoSchema(AutoSchema):
                     "application/json": {
                         "schema": YearSerializer().to_schema(),
                     }
-                }
+                },
             }
             if "requestBody" not in operation:
                 operation["requestBody"] = request_body
             else:
                 operation["requestBody"].update(request_body)
         return operation
-    
+
 
 class StatisticViewSet(viewsets.ViewSet):
     queryset = Order.objects.all()
-    permission_classes = [IsAuthenticated] #admin
+    permission_classes = [IsAuthenticated]  # admin
     schema = CustomAutoSchema()
-    
+
     @extend_schema(request=YearSerializer)
     @action(detail=False, methods=["post"])
     def get_revenue(self, request):
-        try:            
+        try:
             serializer = YearSerializer(data=request.data)
             if serializer.is_valid():
                 year = serializer.data.get("year", False)
@@ -191,27 +189,35 @@ class StatisticViewSet(viewsets.ViewSet):
                 orders = Order.objects.filter(created_at__year=year)
                 count_orders = orders.count()
 
-                complete_orders = orders.filter(status='COMPLETED')
+                complete_orders = orders.filter(status="COMPLETED")
 
-                revenue_data = complete_orders.annotate(month=TruncMonth('created_at')
-                                            ).values('month'
-                                            ).annotate(total_revenue_month=Sum('total')
-                                            ).order_by('month')
-                
-                revenue = complete_orders.aggregate(total_revenue=Sum('total'))['total_revenue'] or 0
+                revenue_data = (
+                    complete_orders.annotate(month=TruncMonth("created_at"))
+                    .values("month")
+                    .annotate(total_revenue_month=Sum("total"))
+                    .order_by("month")
+                )
+
+                revenue = (
+                    complete_orders.aggregate(total_revenue=Sum("total"))[
+                        "total_revenue"
+                    ]
+                    or 0
+                )
 
                 count_complete_orders = complete_orders.count()
-                
+
                 response_data = {
-                    'result': 'Success',
-                    'revenue_month': list(revenue_data),
-                    'total_revenue': revenue,
-                    'count_orders': count_orders,
-                    'count_complete_orders': count_complete_orders
+                    "result": "Success",
+                    "revenue_month": list(revenue_data),
+                    "total_revenue": revenue,
+                    "count_orders": count_orders,
+                    "count_complete_orders": count_complete_orders,
                 }
 
-                return Response(response_data)      
-              
+                return Response(response_data)
+
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
+            return Response({"error": str(e)})

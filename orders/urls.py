@@ -2,12 +2,12 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path
 
 from orders.views import (
-    EventViewSet,
     OrderViewSet,
     VoucherViewSet,
     count_valid_vouchers,
+    StatisticViewSet,
+    EventViewSet,
 )
-from orders.views import OrderViewSet, VoucherViewSet, count_valid_vouchers, StatisticViewSet
 
 
 router = DefaultRouter()
