@@ -3,7 +3,7 @@ from foods.models import Food
 
 
 class FoodFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(lookup_expr="icontains")
+    name = django_filters.CharFilter(lookup_expr="unaccent__icontains")
     order = django_filters.OrderingFilter(fields=(("rating", "rating"),))
     is_liked = django_filters.BooleanFilter(
         field_name="is_liked",
