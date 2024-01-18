@@ -10,6 +10,7 @@ from firebase_admin import messaging
 from stores.models import Store
 
 from users.models import FCMToken, User
+from utils.notify import notify
 
 
 @api_view(["GET"])
@@ -78,18 +79,23 @@ def retrieve_chat(request, chat_room_id):
 
             print("store_id", store_id)
             store = Store.objects.get(id=store_id)
-            if store is not None:
-                fcm_tokens = FCMToken.objects.filter(user=store.owner)
-                for fcm_token in fcm_tokens:
-                    message = messaging.Message(
-                        notification=messaging.Notification(
-                            body=request.data.get("message"),
-                            title=store.owner.name,
-                        ),
-                        token=fcm_token.key,
-                    )
-                    response = messaging.send(message)
-                    print("gui ne", response)
+            notify(
+                body=request.data.get("message"),
+                title=store.owner.name,
+                userId=store_id,
+            )
+            # if store is not None:
+            #     fcm_tokens = FCMToken.objects.filter(user=store.owner)
+            #     for fcm_token in fcm_tokens:
+            #         message = messaging.Message(
+            #             notification=messaging.Notification(
+            #                 body=request.data.get("message"),
+            #                 title=store.owner.name,
+            #             ),
+            #             token=fcm_token.key,
+            #         )
+            #         response = messaging.send(message)
+            #         print("gui ne", response)
         else:
             store_id = request.auth.payload.get("store_id")
             data = {
@@ -102,16 +108,18 @@ def retrieve_chat(request, chat_room_id):
             serializer.is_valid(raise_exception=True)
             serializer.save()
 
-            fcm_tokens = FCMToken.objects.filter(user=buyer_id)
             receiver = User.objects.get(id=buyer_id)
-            for fcm_token in fcm_tokens:
-                message = messaging.Message(
-                    notification=messaging.Notification(
-                        body=request.data.get("message"),
-                        title=receiver.name,
-                    ),
-                    token=fcm_token.key,
-                )
-                response = messaging.send(message)
-                print("gui ne", response)
+            notify(
+                body=request.data.get("message"), title=receiver.name, userId=buyer_id
+            )
+            # for fcm_token in fcm_tokens:
+            #     message = messaging.Message(
+            #         notification=messaging.Notification(
+            #             body=request.data.get("message"),
+            #             title=receiver.name,
+            #         ),
+            #         token=fcm_token.key,
+            #     )
+            #     response = messaging.send(message)
+            #     print("gui ne", response)
         return Response()
